@@ -11,6 +11,11 @@
 				font-family: "Arial";
 			}
 			
+			#canvas{
+				background-color: #000;
+				padding: 0px;
+			}
+			
 			h1{
 				font-weight: lighter;
 				letter-spacing: 5px;
@@ -21,38 +26,201 @@
 				height: 100%;
 				margin: 0 auto;
 			}
-			#main-content{
-				float: right;
-				width: 80%;
-				color: #dddddd;
-			}
+			
 			#nav-bar{
-				float: left;
+				float: top;
 				background-color: #111111;
 				color: #dddddd;
-				width: 20%;
+				height: 10%;
 			}
-			
 			#nav-bar img{
-				width: 100%;
+				width: 85%;
+				height: 85%;
 			}
 			
-
+			#nav-bar img:hover{
+				opacity: 0.5; 
+			}
+			
 		 </style>
+		 <script src="js/three.min.js"></script>
+		<script src="js/MTLLoader.js"></script>
+		<script src="js/OBJMTLLoader.js"></script>
 	</head>
 	<body>
 		<div id="wrapper">
 			<div id="nav-bar">
-				<center><h1>Kara Dodd</h1>
-					<ul> 
-						ABOUT
-						<img src="img/Windows_live_square.JPG">
-					</ul>
-				</center>
+				<center><h1>Kara Dodd</h1> </center>
 			</div>
-				<div id="main-content">
-					HELLO
-				</div>
+					<div id="canvas">
+						<!-- ++++++++++++++++++++++
+							BEGIN THREE.JS CODE
+							+++++++++++++++++++++++ -->
+					
+						<script>
+								/* This script is for the main content portion of the portfolio
+									the output of the program is an upside down triforce 
+									that when the mouse hovers over each triangle, an option to 
+									link to a new page of the site appears
+									
+									The pages available are: code, games, 3D art, and 2D art*/
+																
+						var container, stats;
+
+						var camera, scene, renderer,loader;
+						
+						var mouse = new THREE.Vector2(); //x and y 
+						var raycaster = new THREE.Raycaster(); //for picking 
+
+						var windowHalfX = window.innerWidth / 2;
+						var windowHalfY = window.innerHeight / 2;
+						
+						var tri1 = new THREE.Object3D(); //pink
+						var tri2 = new THREE.Object3D(); //white
+						var tri3 = new THREE.Object3D(); //cyan
+						var tri4 = new THREE.Object3D(); //yellow
+
+
+						init();
+						animate();
+
+						// init - set up scene and cameras, load objects in the scene
+						function init() {
+
+							container = document.createElement( 'div' );
+							document.body.appendChild( container );
+
+							camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 2000 );
+							camera.position.z = 10;
+
+							// scene
+
+							scene = new THREE.Scene();
+
+							var ambient = new THREE.AmbientLight( 0x444444 );
+							scene.add( ambient );
+
+							var directionalLight = new THREE.DirectionalLight( 0xffeedd );
+							directionalLight.position.set( 0, 1, 1 ).normalize();
+							scene.add( directionalLight );
+
+							// model
+
+							var onProgress = function ( xhr ) {
+								if ( xhr.lengthComputable ) {
+									var percentComplete = xhr.loaded / xhr.total * 100;
+									console.log( Math.round(percentComplete, 2) + '% downloaded' );
+								}
+							};
+
+							var onError = function ( xhr ) {
+							};
+
+
+							//THREE.Loader.Handlers.add( /\.dds$/i, new THREE.DDSLoader() );
+							//LOAD ALL TRIANGLES VIA OBJMTL LOADER
+
+							loader = new THREE.OBJMTLLoader();
+							loader.load( 'img/tri1.obj', 'img/tri1.mtl', function ( object ) {
+								tri1.add(object); // add object to the 3D marker
+								tri1.scale.set(1.2,1.2,1.0);
+								tri1.translateX(-1.5);
+								tri1.translateY( 2); 
+								scene.add( tri1 );
+
+							}, onProgress, onError );
+							
+							loader.load('img/tri2.obj', 'img/tri2.mtl', function (object){
+								tri2.add(object);
+								tri2.scale.set(1.2,1.2,1.0);
+								tri2.translateX(1);
+								tri2.translateY(2);
+								scene.add(tri2);
+							});
+							
+							
+							loader.load('img/tri3.obj', 'img/tri3.mtl', function (object){
+								tri3.add(object);
+								tri3.scale.set(1.2,1.2,1);
+								tri3.translateX(-0.3);
+								tri3.translateY(-0.4);
+								scene.add(tri3); 
+							}, onProgress, onError);
+
+							//
+
+							renderer = new THREE.WebGLRenderer();
+							renderer.setPixelRatio( window.devicePixelRatio );
+							renderer.setSize( window.innerWidth, window.innerHeight );
+							container.appendChild( renderer.domElement );
+							
+							container.addEventListener('mousemove', onMouseOver, false); 
+
+							//document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+
+							//
+
+							window.addEventListener( 'resize', onWindowResize, false );
+
+						}
+
+						function onWindowResize() {
+
+							windowHalfX = window.innerWidth / 2;
+							windowHalfY = window.innerHeight / 2;
+
+							camera.aspect = window.innerWidth / window.innerHeight;
+							camera.updateProjectionMatrix();
+
+							renderer.setSize( window.innerWidth, window.innerHeight );
+
+						}
+
+						function onMouseOver( event ) {
+
+							mouse.x = ( event.clientX / renderer.domElement.width) * 2 -1;
+							mouse.y = -( event.clientY - renderer.domElement.height) * 2 + 1;
+							
+							var triangles = [tri1, tri2, tri3];
+							for(var i = 0; i < triangles.length; i++){ //NOTHINGS HAPPENING HERE BC REASONS
+								triangles[i].rotation.y = 0; 
+							}
+
+						}
+						//
+						
+						// tick - this rotates the triangles at every frame render
+						
+						var tick_rotation = 0.0; //used to rotated back and forth
+						function tick(){
+							//diamond rotates slightly back and forth
+							tick_rotation = tick_rotation + Math.PI/1000; //VERY SLOWWWW
+							var tic = Math.sin(tick_rotation); 
+							
+							//rotate all diamonds in sin wave 
+							tri1.rotation.y = tic; 
+							tri2.rotation.y = tic;
+							tri3.rotation.y = tic; 
+						}
+						//
+
+						function animate() {
+
+							requestAnimationFrame( animate );
+							tick();
+							render();
+
+						}
+
+						function render() {
+
+							camera.lookAt( scene.position );
+
+							renderer.render( scene, camera );
+
+						}
+						</script>
+					</div>
 		</div>
 	</body>
-</html> 
+</html>
