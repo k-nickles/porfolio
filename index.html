@@ -181,10 +181,10 @@
 							mouse.x = ( event.clientX / renderer.domElement.width) * 2 -1;
 							mouse.y = -( event.clientY - renderer.domElement.height) * 2 + 1;
 							
-							var triangles = [tri1, tri2, tri3];
-							for(var i = 0; i < triangles.length; i++){ //NOTHINGS HAPPENING HERE BC REASONS
-								triangles[i].rotation.y = 0; 
-							}
+							tri1.rotation.y = mouse.x; //might need to convert to radians?
+							tri2.rotation.y = mouse.x; 
+							tri3.rotation.y = mouse.x; 
+							
 
 						}
 						//
