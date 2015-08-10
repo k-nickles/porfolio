@@ -18,7 +18,7 @@
 			
 			h1{
 				font-weight: lighter;
-				letter-spacing: 5px;
+				letter-spacing: 15px;
 			}
 			
 			#wrapper{
@@ -29,19 +29,52 @@
 			
 			#nav-bar{
 				float: top;
-				background-color: #111111;
 				color: #dddddd;
 				height: 10%;
 			}
-			#nav-bar img{
-				width: 85%;
-				height: 85%;
+			
+			#code-link{
+				color: #fff;
+				z-index: 999999;
+				position: absolute;
+				width: 15%;
+				height: 100px; 
+				-ms-transform: translate(450px,85%); 
+				-webkit-transform: translate(450px,85%); 
+				transform: translate(450px,85%);
+				
 			}
 			
-			#nav-bar img:hover{
-				opacity: 0.5; 
+			#code-link:hover{
+				background-color: #ff0000;
 			}
 			
+			#twoart-link{
+				color: #fff;
+				z-index: 999999;
+				position: absolute;
+				height: 100px;
+				-ms-transform: translate(700px,85%); 
+				-webkit-transform: translate(700px,85%); 
+				transform: translate(700px,85%);
+			}
+			
+			#twoart-link:hover{
+				background-color: #ff0000;
+			}
+			
+			#threeart-link{
+				color: #fff;
+				z-index: 999999;
+				position: absolute;
+				height: 100px;
+				-ms-transform: translate(570px,300%); 
+				-webkit-transform: translate(570px,300%); 
+				transform: translate(570px,300%);
+			}
+			#threeart-link:hover{
+				background-color: #ff0000;
+			}
 		 </style>
 		 <script src="js/three.min.js"></script>
 		<script src="js/MTLLoader.js"></script>
@@ -52,6 +85,17 @@
 			<div id="nav-bar">
 				<center><h1>Kara Dodd</h1> </center>
 			</div>
+				<div id="code-link">
+					<center><h1>GITHUB</h1></center>
+				</div>
+				
+				<div id="twoart-link">
+					<h1>2D ART</h1>
+				</div>
+				
+				<div id="threeart-link">
+					<h1>3D ART</h1>
+				</div>
 					<div id="canvas">
 						<!-- ++++++++++++++++++++++
 							BEGIN THREE.JS CODE
@@ -68,9 +112,6 @@
 						var container, stats;
 
 						var camera, scene, renderer,loader;
-						
-						var mouse = new THREE.Vector2(); //x and y 
-						var raycaster = new THREE.Raycaster(); //for picking 
 
 						var windowHalfX = window.innerWidth / 2;
 						var windowHalfY = window.innerHeight / 2;
@@ -153,12 +194,6 @@
 							renderer.setPixelRatio( window.devicePixelRatio );
 							renderer.setSize( window.innerWidth, window.innerHeight );
 							container.appendChild( renderer.domElement );
-							
-							container.addEventListener('mousemove', onMouseOver, false); 
-
-							//document.addEventListener( 'mousemove', onDocumentMouseMove, false );
-
-							//
 
 							window.addEventListener( 'resize', onWindowResize, false );
 
@@ -176,23 +211,12 @@
 
 						}
 
-						function onMouseOver( event ) {
-
-							mouse.x = ( event.clientX / renderer.domElement.width) * 2 -1;
-							mouse.y = -( event.clientY - renderer.domElement.height) * 2 + 1;
-							
-							tri1.rotation.y = mouse.x; //might need to convert to radians?
-							tri2.rotation.y = mouse.x; 
-							tri3.rotation.y = mouse.x; 
-							
-
-						}
 						//
 						
 						// tick - this rotates the triangles at every frame render
 						
 						var tick_rotation = 0.0; //used to rotated back and forth
-						function tick(){
+						function tickAnimation(){
 							//diamond rotates slightly back and forth
 							tick_rotation = tick_rotation + Math.PI/1000; //VERY SLOWWWW
 							var tic = Math.sin(tick_rotation); 
@@ -201,13 +225,14 @@
 							tri1.rotation.y = tic; 
 							tri2.rotation.y = tic;
 							tri3.rotation.y = tic; 
+
 						}
 						//
 
 						function animate() {
 
 							requestAnimationFrame( animate );
-							tick();
+							tickAnimation();
 							render();
 
 						}
