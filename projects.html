@@ -12,7 +12,9 @@
 				font-family: 'RobotoDraft', 'Roboto', 'Helvetica Neue, Helvetica, Arial', sans-serif;
 				color: white;
 			}
-			
+			a{
+				text-decoration: none;
+			}
 			h1{
 				color: white;
 				font-weight: lighter;
@@ -36,44 +38,120 @@
 				width: 55%;
 				height: 75%;
 				border-radius: 25px;
-				padding: 10px 0;  
+				padding: 10px 0; 
+				margin-top: 12px; 
+ 
 			}
 			
-			.descript {
-				display: inline-block;
+			.sticky {
+				background-color: #111111;
 				position: relative; 
 				float: left;
-				padding: 10px; 
-				width: 43%;
-				margin-left: 5px;
+				padding: 10px 0;
+				width: 41%;
+				margin-left: 15px;
+				margin-top: 20px;
+				border-radius: 5px;
 				
+			}
+			
+			.sticky.stick{
+				position: fixed;
+				left: 56.3%;
+				top: 0; 
+				z-index: 15;
 			}
 			
 			p{
 				font-weight: lighter;
 				text-alight: center;
-				padding: 10px; 
-				width: 75%; 
+				padding: 20px; 
+				width: auto; 
+			}
+			
+			#nav-link{
+				z-index: 9;
+				background-color: #000000;
+				position: relative;
+				padding: 15px;
+				left: 24%; 
+			}
+			
+			a.item-link{
+				position: relative;
+				display: block;
+				margin: 0 10px;
+				float: left;
+				opacity: 1;
+				color: white;
+				padding: 10px;
+				text-transform: uppercase;
+				text-align: center;
+				text-decoration: none;
+				letter-spacing: 0.5em;
+				box-shadow: 0px 0px 0px 3px white;
+				transition: all 0.3s ease-out; 
+			}
+			
+			a:hover{
+				background-color: white;
+				color: black;
 			}
 		 </style>
 		 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 	</head>
 	<body>
-		<div id="name-bar"><center><h1>Kara Dodd </h1></center>
+	
+		<!-- The following items should be on all webpages - perhaps move them to a layout.css?-->
+		<div id="name-bar"><center><a href="index.html"><h1>Kara Dodd </h1></a></center>
 		</div>
+		<div id="nav-link">
+				<a class="item-link" href="projects.html">projects</a>
+				<a class="item-link" href="#">2d art</a>
+				<a class="item-link" href="#">3d art</a>
+				<a class="item-link" href="#">contact</a>
+		</div>
+		<!-- End navigation bar-->
 		
 		<div id="wrapper">
 			<ul>
 				<li>
 					<img src="img/dragon.png">
-					<div class="descript"><p>Here is a description for a 
-					picture and or project that I have made. This text box will appear and 
-					disappear when hovering over the images. </p>
+					<div class="anchor-top"></div>
+					<div class="sticky"><p>Here is a description for a 
+					picture and or project that I have made. This text box scroll
+					with the image until the end of the image. Now what if the text becomes a 
+					little bit longer then what do we do?</p>
 					</div>
+					<div class="anchor-bottom"></div>
+				</li>
+				<li>
+					<img src="img/dragon.png">
 				</li>
 			</ul>
 		</div>
+		
+	<!-- Here we are adding sticky descriptions to the images
+			The descriptions are sticky until the end of the image and then un-stick-->	
+	<!-- Code inspired by http://jsfiddle.net/livibetter/HV9HM/-->
 	<script>
+		function sticky_note() {
+			var window_top = $(window).scrollTop();
+			var div_top = $('.anchor-top').offset().top;
+			var div_bottom = $('.anchor-bottom').offset().top;
+			if (window_top > div_top) {
+				$('.sticky').addClass('stick');
+			} else if ($('.anchor-top').offset().top > div_bottom){
+				$('.sticky').removeClass('stick');
+			}else{
+				$('.sticky').removeClass('stick');
+			}
+		}
+
+		$(function () {
+			$(window).scroll(sticky_note);
+			sticky_note();
+		});
 	</script>
 	</body>
 </html>
