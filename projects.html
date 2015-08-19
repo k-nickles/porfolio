@@ -57,11 +57,17 @@
 			}
 			
 			.sticky {
+				font-weight: lighter; 
+				text-align: center; 
 				background-color: #111111;
 				position: relative; 
 				float: right;
-				padding: 10px 0;
+				padding: 12px 0 ;
 				width: 43%;			
+			}
+			
+			.sticky.stick{
+				position: fixed; 
 			}
 			
 			p{
@@ -124,6 +130,7 @@
 					with the image until the end of the image. Now what if the text becomes a 
 					little bit longer then what do we do?</p>
 					</div>
+					<img src="img/dragon.png">
 			</div>
 			<div class="project-item">
 				<h2>Other Project Title</h2>
@@ -141,6 +148,22 @@
 		sticky div elements disappear after hitting the bottom of the parent element-->
 	<script>
 		$(".sticky").stick_in_parent();
+		
+		/*function sticky_note() {
+			var window_top = $(window).scrollTop();
+			var div_top = $('.project-item').offset().top;
+			if (window_top > div_top) {
+				$('.sticky').addClass('.stick'); 
+			}else{
+				$('.sticky').removeClass('.stick'); 
+			}
+		}
+
+		$(function () {
+			$(window).scroll(sticky_note);
+			sticky_note();
+		}); */
+		
 	</script>
 	</body>
 </html>
