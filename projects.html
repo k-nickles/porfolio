@@ -12,54 +12,56 @@
 				font-family: 'RobotoDraft', 'Roboto', 'Helvetica Neue, Helvetica, Arial', sans-serif;
 				color: white;
 			}
+			
 			a{
 				text-decoration: none;
 			}
+			
 			h1{
 				color: white;
 				font-weight: lighter;
 				letter-spacing: 15px;
 			}
 			
+			h2{
 			
-			ul{
-				list-style-type: none; 
+				font-weight: lighter;
+				letter-spacing: 10px;
+				text-shadow: 2px 2px #800000;
+				background-color: #990033;
+				padding: 15px;
 			}
 			
 			#wrapper{
-				position: relative;
+				margin-top: 40px; 
 				width: 100%;
 			}
 			
+			.project-item{
+				position: relative;
+				margin-left: 55px;
+				margin-right: 55px;
+				margin-bottom: 20px;
+			}
 			
-			#wrapper ul li img{
+			#wrapper.project-item{
 				position: relative; 
 				float: left; 
-				width: 55%;
+				margin-bottom: 15px; 
+			}
+			
+			img{
+				position: relative;
+				width: 55%; 
 				height: 75%;
-				border-radius: 25px;
-				padding: 10px 0; 
-				margin-top: 12px; 
- 
 			}
 			
 			.sticky {
 				background-color: #111111;
 				position: relative; 
-				float: left;
+				float: right;
 				padding: 10px 0;
-				width: 41%;
-				margin-left: 15px;
-				margin-top: 20px;
-				border-radius: 5px;
-				
-			}
-			
-			.sticky.stick{
-				position: fixed;
-				left: 56.3%;
-				top: 0; 
-				z-index: 15;
+				width: 43%;			
 			}
 			
 			p{
@@ -72,9 +74,7 @@
 			#nav-link{
 				z-index: 9;
 				background-color: #000000;
-				position: relative;
 				padding: 15px;
-				left: 24%; 
 			}
 			
 			a.item-link{
@@ -82,6 +82,7 @@
 				display: block;
 				margin: 0 10px;
 				float: left;
+				left: 24%;
 				opacity: 1;
 				color: white;
 				padding: 10px;
@@ -99,6 +100,7 @@
 			}
 		 </style>
 		 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+		 <script src="https://rawgit.com/leafo/sticky-kit/v1.1.2/jquery.sticky-kit.js"></script>
 	</head>
 	<body>
 	
@@ -114,44 +116,31 @@
 		<!-- End navigation bar-->
 		
 		<div id="wrapper">
-			<ul>
-				<li>
-					<img src="img/dragon.png">
-					<div class="anchor-top"></div>
+			<div class="project-item">
+				<h2>Title of Project</h2>
+					<img src="img/succulent.png">
 					<div class="sticky"><p>Here is a description for a 
 					picture and or project that I have made. This text box scroll
 					with the image until the end of the image. Now what if the text becomes a 
 					little bit longer then what do we do?</p>
 					</div>
-					<div class="anchor-bottom"></div>
-				</li>
-				<li>
+			</div>
+			<div class="project-item">
+				<h2>Other Project Title</h2>
 					<img src="img/dragon.png">
-				</li>
-			</ul>
+					<div class="sticky"><p>Here is a description for a 
+					picture and or project that I have made. This text box scroll
+					with the image until the end of the image. Now what if the text becomes a 
+					little bit longer then what do we do?</p>
+			</div>
 		</div>
 		
 	<!-- Here we are adding sticky descriptions to the images
 			The descriptions are sticky until the end of the image and then un-stick-->	
-	<!-- Code inspired by http://jsfiddle.net/livibetter/HV9HM/-->
+	<!-- Using a temporary plug-in, this plugin currently has a bug that makes 
+		sticky div elements disappear after hitting the bottom of the parent element-->
 	<script>
-		function sticky_note() {
-			var window_top = $(window).scrollTop();
-			var div_top = $('.anchor-top').offset().top;
-			var div_bottom = $('.anchor-bottom').offset().top;
-			if (window_top > div_top) {
-				$('.sticky').addClass('stick');
-			} else if ($('.anchor-top').offset().top > div_bottom){
-				$('.sticky').removeClass('stick');
-			}else{
-				$('.sticky').removeClass('stick');
-			}
-		}
-
-		$(function () {
-			$(window).scroll(sticky_note);
-			sticky_note();
-		});
+		$(".sticky").stick_in_parent();
 	</script>
 	</body>
 </html>
