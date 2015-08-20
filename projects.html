@@ -38,7 +38,7 @@
 			}
 			
 			.project-item{
-				position: relative;
+				position: relative !important;
 				margin-left: 55px;
 				margin-right: 55px;
 				margin-bottom: 20px;
@@ -67,7 +67,18 @@
 			}
 			
 			.sticky.stick{
-				position: fixed; 
+				position: fixed !important; 
+				top: 0; 
+				right: 0;
+				
+				z-index: 999;
+			}
+			
+			.sticky.stick.stuck{
+				position: absolute !important; 
+				top: auto; 
+				bottom: 0; 
+				z-index: 999;
 			}
 			
 			p{
@@ -144,25 +155,40 @@
 		
 	<!-- Here we are adding sticky descriptions to the images
 			The descriptions are sticky until the end of the image and then un-stick-->	
-	<!-- Using a temporary plug-in, this plugin currently has a bug that makes 
-		sticky div elements disappear after hitting the bottom of the parent element-->
+	<!-- TODO :  This sticky div only works for the first div in the chain :( -->
 	<script>
-		$(".sticky").stick_in_parent();
+		//$(".sticky").stick_in_parent();
 		
-		/*function sticky_note() {
-			var window_top = $(window).scrollTop();
-			var div_top = $('.project-item').offset().top;
-			if (window_top > div_top) {
-				$('.sticky').addClass('.stick'); 
+		function sticky_note() {
+			var $windowTop = $(window).scrollTop();
+			var $boundBox = $('.project-item');
+			var $sticky = $('.sticky');
+				
+			var above_bound = $boundBox.offset().top, 
+					height_bound = $boundBox.height(), 
+					height_sticky = $sticky.height(); 
+					
+			if($windowTop > above_bound + 30){
+				$sticky.addClass('stick'); 
 			}else{
-				$('.sticky').removeClass('.stick'); 
+				$sticky.removeClass('stick'); 
 			}
+			
+			if($windowTop > above_bound + height_bound - height_sticky){
+				$sticky.addClass('stuck'); 	
+			}else{
+				$sticky.removeClass('stuck'); 
+			}
+			
+			if($windowTop > above_bound + height_bound){
+				$sticky.removeClass('stick'); 
+			} 
 		}
 
 		$(function () {
 			$(window).scroll(sticky_note);
 			sticky_note();
-		}); */
+		});
 		
 	</script>
 	</body>
