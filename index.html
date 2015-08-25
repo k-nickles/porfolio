@@ -10,7 +10,6 @@
 				padding: 0;
 				margin: 0;
 				 font-family: 'RobotoDraft', 'Roboto', 'Helvetica Neue, Helvetica, Arial', sans-serif;
-
 			}
 			
 			#canvas{
@@ -59,10 +58,36 @@
 				transition: all 0.3s ease-out; 
 			}
 			
-			a:hover{
+			a.item-link:hover{
 				background-color: white;
 				color: black;
 			}
+			
+			img{
+				position: relative;
+				float: left;
+				margin-left: 500px;
+				margin-bottom: 100px;
+				width: 100px; 
+				height: 100px; 
+				opacity: 0.75; 
+				transition: all 0.3s ease-out; 
+			}
+			
+			h3{
+				position: relative; 
+				float: left; 
+				font-weight: lighter;
+				color: #FFFFFF;
+				padding-top: 20px;
+				margin-bottom: 100px; 
+				opacity: 0.75;
+			}
+			
+			img:hover{ 
+				opacity: 1; 
+			}
+			
 		 </style>
 		 <script src="js/three.min.js"></script>
 		<script src="js/MTLLoader.js"></script>
@@ -77,7 +102,7 @@
 					<a class="item-link" href="projects.html">projects</a>
 					<a class="item-link" href="#">2d art</a>
 					<a class="item-link" href="#">3d art</a>
-					<a class="item-link" href="#">contact</a>
+					<a class="item-link" href="contact.html">contact</a>
 				</div>
 					<div id="canvas">
 						<!-- ++++++++++++++++++++++
@@ -230,5 +255,6 @@
 						</script>
 					</div>
 		</div>
+		<a href="https://github.com/k-nickles"><img src="img/gh2.png"><h3>Follow me on Github!</h3></a>
 	</body>
 </html>
