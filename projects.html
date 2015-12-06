@@ -4,80 +4,51 @@
 		<title>Kara Dodd - Portfolio</title>
 		 <meta charset="utf-8" />
 		 <link rel="stylesheet" type="text/css" href="css/content-style.css">
+		 <link rel="stylesheet" type="text/css" href="css/photogrid.css">
 		 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 		 <script src="https://rawgit.com/leafo/sticky-kit/v1.1.2/jquery.sticky-kit.js"></script>
+
 	</head>
 	<body>
 	
 		<!-- The following items should be on all webpages - perhaps move them to a layout.css?-->
-		<div id="name-bar"><center><a href="index.html"><h1>Kara Dodd </h1></a></center>
-		</div>
-		<div id="nav-link">
-				<a class="item-link" href="projects.html">projects</a>
-				<a class="item-link" href="#">2d art</a>
-				<a class="item-link" href="#">3d art</a>
-				<a class="item-link" href="contact.html">contact</a>
+		<div id="nav-bar">
+				<a href="index.html"><h1>Kara Dodd</h1></a><h2>- front end developer</h2>
+				<div id="nav-link">
+					<a class="item-link" href="projects.html">UI Design</a>
+					<a class="item-link" href="two-art.html">2D/3D Art</a>
+					<a class="item-link" href="#">Social Media</a>
+					<a class="item-link" href="contact.html">Resume</a>
+				</div>
 		</div>
 		<!-- End navigation bar-->
 		
-		<div id="wrapper">
-			<div class="project-item">
-				<h2>Title of Project</h2>
-					<img src="img/succulent.png">
-					<div class="sticky"><p>Here is a description for a 
-					picture and or project that I have made. This text box scroll
-					with the image until the end of the image. Now what if the text becomes a 
-					little bit longer then what do we do?</p>
-					</div>
-					<img src="img/dragon.png">
-			</div>
-			<div class="project-item">
-				<h2>Other Project Title</h2>
-					<img src="img/dragon.png">
-					<div class="sticky"><p>Here is a description for a 
-					picture and or project that I have made. This text box scroll
-					with the image until the end of the image. Now what if the text becomes a 
-					little bit longer then what do we do?</p>
-			</div>
-		</div>
-		
-	<!-- Here we are adding sticky descriptions to the images
-			The descriptions are sticky until the end of the image and then un-stick-->	
-	<!-- TODO :  This sticky div only works for the first div in the chain :( -->
-	<script>
-		//$(".sticky").stick_in_parent();
-		
-		function sticky_note() {
-			var $windowTop = $(window).scrollTop();
-			var $boundBox = $('.project-item');
-			var $sticky = $('.sticky');
-				
-			var above_bound = $boundBox.offset().top, 
-					height_bound = $boundBox.height(), 
-					height_sticky = $sticky.height(); 
-					
-			if($windowTop > above_bound){
-				$sticky.addClass('stick'); 
-			}else{
-				$sticky.removeClass('stick'); 
-			}
-			
-			if($windowTop > above_bound + height_bound - height_sticky){
-				$sticky.addClass('stuck'); 	
-			}else{
-				$sticky.removeClass('stuck'); 
-			}
-			
-			if($windowTop > above_bound + height_bound){
-				$sticky.removeClass('stick'); 
-			} 
-		}
 
-		$(function () {
-			$(window).scroll(sticky_note);
-			sticky_note();
-		});
-		
-	</script>
+		<!-- Photogrid Layout -->
+		<div id="wrapper">
+	    	<div class="grids">
+	    		<div class="grid-img">
+	    			<img src="img/CColor.png">
+	    		</div>
+	    		<div class="grid-img" id="card-2">
+	    			<img src="img/succulent.png">
+	    		</div>
+	    		<div class="grid-img" id="card-3">
+	    			<img src="img/dragon.png">
+	    		</div>
+	    		<div class="grid-img" id="card-3">
+	    			<img src="img/turtlewhatthefuck.png">
+	    		</div>
+	    		<div class="grid-img" id="card-3">
+	    			<img src="img/twosided copy.png">
+	    		</div>
+	    		<div class="grid-img" id="card-3">
+	    			<img src="img/geode.png">
+	    		</div>
+	    		<div class="grid-img" id="card-3">
+	    			<img src="img/angel.png">
+	    		</div>	    		
+	    	</div>
+		</div>
 	</body>
 </html>
